@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Sticky Notes - {{ page_title }}{% endblock %}
+{% block content %}
+  <h2>{{ page_title }}</h2>
+  <form action="{% url 'note_create' %}" method="get" class="inline-form">
+    <button type="submit" class="btn">+ Add note</button>
+  </form>
+  <div class="note-grid">
+    {% for note in notes %}
+      <div class="note">
+        <h3>{{ note.title }}</h3>
+        <p>{{ note.content|truncatewords:25 }}</p>
+        <div class="button-row">
+          <form action="{% url 'note_detail' pk=note.pk %}" method="get" class="inline-form">
+            <button type="submit" class="btn btn-small">View</button>
+          </form>
+          <form action="{% url 'note_update' pk=note.pk %}" method="get" class="inline-form">
+            <button type="submit" class="btn btn-small">Edit</button>
+          </form>
+          <form action="{% url 'note_delete' pk=note.pk %}" method="get" class="inline-form">
+            <button type="submit" class="btn btn-small btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    {% empty %}
+      <p>No notes yet. Add your first one!</p>
+    {% endfor %}
+  </div>
+{% endblock %}
