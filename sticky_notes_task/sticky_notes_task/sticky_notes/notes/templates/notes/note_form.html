@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Sticky Notes - {% if form.instance.pk %}Edit{% else %}New{% endif %} Note{% endblock %}
+{% block content %}
+  <h2>{% if form.instance.pk %}Edit{% else %}New{% endif %} Note</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="button-row">
+      <button type="submit" class="btn">Save</button>
+      <button type="button" class="btn btn-secondary"
+        data-href="{% url 'note_list' %}"
+        onclick="window.location.href = this.dataset.href">Cancel</button>
+    </div>
+  </form>
+{% endblock %}
